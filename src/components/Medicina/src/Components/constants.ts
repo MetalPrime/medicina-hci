@@ -1,0 +1,10 @@
+const SINTOMAS = {
+    DOLOR_CABEZA: "DOLOR_CABEZA",
+    DOLOR_ESTOMAGO: "DOLOR_ESTOMAGO",
+    TOS: "TOS",
+    FIEBRE: "FIEBRE",
+    VERTIGO: "VERTIGO",
+    ALERGIA: "ALERGIA"
+}
+
+export default SINTOMAS;
