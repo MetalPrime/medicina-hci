@@ -167,6 +167,11 @@ class Game implements Pantalla {
         }
 
         this.select = undefined;
+
+        if(this.paciente.validarEnfermedades()){
+            this.paciente.cara = this.app.loadImage('/img/medicina/recursos/pacientes/enfermedad/enferNormal.png');
+            this.paciente.enfer = this.app.loadImage('/img/medicina/recursos/pacientes/caras/caraNormal.png')
+        }
     }
 
     mouseDragged() {
