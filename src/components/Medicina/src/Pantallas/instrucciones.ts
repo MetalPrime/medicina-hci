@@ -130,3 +130,32 @@ export class Instrucciones4 implements Pantalla {
 
 }
 
+export class Instrucciones5 implements Pantalla {
+
+
+    app: p5;
+    nav: Navegador;
+    btnJugar: Elemento;
+    inicio: p5.Image;
+
+
+    constructor(app: p5, nav: Navegador) {
+        this.nav = nav;
+        this.app = app;
+        this.inicio = this.app.loadImage("/img/medicina/recursos/resultados_pantalla.png")
+        this.btnJugar = new Elemento(app, "/img/medicina/recursos/Boton--siguiente.png", 1060, 660);
+    }
+
+    draw() {
+        this.app.imageMode(this.app.CORNER);
+        this.app.image(this.inicio, 0, 0)
+        this.btnJugar.draw();
+    }
+
+    mousePressed() {
+        if (this.btnJugar.isHover()) {
+            this.nav.next();
+        }
+    }
+
+}

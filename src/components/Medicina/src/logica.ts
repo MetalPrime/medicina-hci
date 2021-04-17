@@ -2,7 +2,7 @@ import p5 from "p5";
 import ImageController from "./Components/imageController";
 import Navegador from "./Navegador/navegador";
 import Game from "./Pantallas/game";
-import Instrucciones1, { Instrucciones2, Instrucciones3, Instrucciones4 } from "./Pantallas/instrucciones";
+import Instrucciones1, { Instrucciones2, Instrucciones3, Instrucciones4, Instrucciones5 } from "./Pantallas/instrucciones";
 import Registro from "./registro";
 
 class Logica {
@@ -21,7 +21,7 @@ class Logica {
         this.navegador.add(new Instrucciones3(app, this.navegador));
         this.navegador.add(new Instrucciones4(app, this.navegador));
         this.navegador.add(new Game(app, this.navegador, this));
-        this.navegador.add(new Instrucciones1(app, this.navegador));
+        this.navegador.add(new Instrucciones5(app, this.navegador));
         this.navegador.goTo(4);
 
     }
