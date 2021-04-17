@@ -55,7 +55,7 @@ class Game implements Pantalla {
         this.bandeja = this.app.loadImage("/img/medicina/recursos/medicina/Charola--medicina.png");
 
         this.tiempo = new Tiempo();
-        this.tiempo.temporizador(120, () => { this.timeOver() });
+        this.tiempo.temporizador(230, () => { this.timeOver() });
     }
 
     draw() {
@@ -75,6 +75,7 @@ class Game implements Pantalla {
         }
         this.app.text(minutes + ":" + secondsStr, 100, 100);
         this.btnDarDeAlta.draw();
+        this.app.text(this.app.mouseX + " " + this.app.mouseY, this.app.mouseX,this.app.mouseY);
     }
 
 
@@ -101,26 +102,35 @@ class Game implements Pantalla {
                 break;
             case 1:
                 this.paciente.setPaciente("/img/medicina/recursos/pacientes/p2Base.png", [SINTOMAS.ALERGIA]);
+                this.paciente.pintar();
                 break;
             case 2:
                 this.paciente.setPaciente("/img/medicina/recursos/pacientes/p1Base.png", [SINTOMAS.DOLOR_CABEZA]);
+                this.paciente.pintar();
                 break;
             case 3:
                 this.paciente.setPaciente("/img/medicina/recursos/pacientes/p3Base.png", [SINTOMAS.DOLOR_CABEZA, SINTOMAS.TOS]);
+                this.paciente.pintar();
                 break;
             case 4:
                 this.paciente.setPaciente("/img/medicina/recursos/pacientes/p2Base.png", [SINTOMAS.DOLOR_CABEZA, SINTOMAS.DOLOR_ESTOMAGO]);
+                this.paciente.pintar();
                 break;
             case 5:
                 this.paciente.setPaciente("/img/medicina/recursos/pacientes/p1Base.png", [SINTOMAS.TOS, SINTOMAS.VERTIGO, SINTOMAS.DOLOR_ESTOMAGO]);
+                this.paciente.pintar();
                 break;
             case 6:
                 this.paciente.setPaciente("/img/medicina/recursos/pacientes/p3Base.png", [SINTOMAS.FIEBRE, SINTOMAS.DOLOR_ESTOMAGO, SINTOMAS.VERTIGO]);
+                this.paciente.pintar();
                 break;
         }
     }
 
     mouseReleased() {
+        console.log(this.select);
+        console.log(this.paciente.width + " " + this.paciente.height);
+        console.log(this.paciente.isHover()); 
         if (this.select !== undefined && this.paciente.isHover()) {
             this.paciente.validarMedicamento(this.select);
         }
@@ -155,6 +165,7 @@ class Game implements Pantalla {
 
             if (this.paciente.validarEnfermedades()) {
                 this.estadoPaciente = "VIVO";
+                
             } else {
                 this.estadoPaciente = "MUERTO";
             }

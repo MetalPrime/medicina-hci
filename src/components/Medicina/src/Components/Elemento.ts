@@ -58,7 +58,7 @@ class Elemento {
 
     setImg(url: string) {
         this.img = this.app.loadImage(url);
-        this.initBounds = false;
+        
     }
 }
 
