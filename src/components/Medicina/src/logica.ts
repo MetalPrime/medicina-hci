@@ -22,7 +22,7 @@ class Logica {
         this.navegador.add(new Instrucciones4(app, this.navegador));
         this.navegador.add(new Game(app, this.navegador, this));
         this.navegador.add(new Instrucciones5(app, this.navegador));
-        this.navegador.goTo(0);
+        this.navegador.goTo(4);
 
     }
 

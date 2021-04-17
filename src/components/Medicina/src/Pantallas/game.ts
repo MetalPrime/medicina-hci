@@ -25,14 +25,20 @@ class Game implements Pantalla {
 
     tiempo: Tiempo;
 
+
     errores: number = 0;
     tiempoRestante: number = 0;
     aciertos: number = 0;
     estadoPaciente: 'VIVO' | 'MUERTO' = 'VIVO';
 
     btnDarDeAlta: Elemento;
+    signoPregunta: Elemento;
 
     nivel = 0;
+
+    isInsTruction : boolean;
+
+    helpUser : p5.Image;
 
     constructor(app: p5, nav: Navegador, log: Logica) {
 
@@ -40,8 +46,12 @@ class Game implements Pantalla {
         this.nav = nav;
         this.log = log;
 
+        this.isInsTruction = false;
+        this.helpUser = this.app.loadImage("/img/medicina/recursos/enferPopup.png");
+
         this.background = this.app.loadImage("/img/medicina/recursos/clinicaBG.png");
-        this.btnDarDeAlta = new Elemento(this.app, "/img/medicina/recursos/darAltaBtn.jpg", 1180, 600);
+        this.btnDarDeAlta = new Elemento(this.app, "/img/medicina/recursos/altaBtn.png", 1180, 600);
+        this.signoPregunta = new Elemento(this.app, "/img/medicina/recursos/signoPregunta.png",50,600);
 
         this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__dolorCabeza.png", 200, 660, SINTOMAS.DOLOR_CABEZA));
         this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__dolorEstomago.png", 350, 660, SINTOMAS.DOLOR_ESTOMAGO));
@@ -75,7 +85,15 @@ class Game implements Pantalla {
         }
         this.app.text(minutes + ":" + secondsStr, 100, 100);
         this.btnDarDeAlta.draw();
-        this.app.text(this.app.mouseX + " " + this.app.mouseY, this.app.mouseX,this.app.mouseY);
+        //this.app.text(this.app.mouseX + " " + this.app.mouseY, this.app.mouseX,this.app.mouseY);
+        this.signoPregunta.draw();
+
+        if(this.isInsTruction){
+            this.app.image(this.helpUser, 570, 620, 900,200); 
+           
+        }
+          
+
     }
 
 
@@ -91,6 +109,17 @@ class Game implements Pantalla {
             
             this.sgtePaciente();
 
+        }
+
+        if(this.signoPregunta.isHover()){
+
+            if(this.isInsTruction === true){
+                this.isInsTruction = false;
+                this.signoPregunta.setImg('/img/medicina/recursos/signoPregunta.png');
+            } else {
+                this.isInsTruction = true;
+                this.signoPregunta.setImg('/img/medicina/recursos/closeHelp.png');
+            }
         }
     }
 
@@ -128,9 +157,7 @@ class Game implements Pantalla {
     }
 
     mouseReleased() {
-        console.log(this.select);
-        console.log(this.paciente.width + " " + this.paciente.height);
-        console.log(this.paciente.isHover()); 
+
         if (this.select !== undefined && this.paciente.isHover()) {
             this.paciente.validarMedicamento(this.select);
         }
@@ -184,6 +211,7 @@ class Game implements Pantalla {
         }
         
     }
+
 }
 
 export default Game;
