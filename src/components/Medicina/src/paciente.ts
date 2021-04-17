@@ -10,7 +10,7 @@ type SitomasEstado = "CURADO" | "ENFERMO";
 class Sintoma {
     name: string;
     estado: SitomasEstado;
-    
+
 
     constructor(name: string, estado: SitomasEstado) {
         this.name = name;
@@ -26,7 +26,7 @@ class Paciente extends Elemento {
     log: Logica;
     game: Game;
 
-    constructor(log: Logica, img: string, x: number, y: number, sintomas: string[], game : Game) {
+    constructor(log: Logica, img: string, x: number, y: number, sintomas: string[], game: Game) {
         super(log.app, img, x, y);
         this.log = log;
 
@@ -45,11 +45,12 @@ class Paciente extends Elemento {
         let cara = '';
         for (let i = 0; i < this.sintomas.length; i++) {
             let sintoma = this.sintomas[i];
-            
-            if(sintoma.estado === 'ENFERMO'){
+
+            if (sintoma.estado === 'ENFERMO') {
                 cara = sintoma.name;
                 i = this.sintomas.length;
-            } 
+                console.log(cara);
+            }
         }
         switch (cara) {
             case SINTOMAS.ALERGIA:
@@ -97,13 +98,34 @@ class Paciente extends Elemento {
         this.draw();
         this.app.imageMode(this.app.CENTER);
         if (this.cara !== undefined) {
-            
+
             this.app.image(this.cara, this.x - 12, this.y - 80);
-            
+
         }
         if (this.enfer !== undefined) {
-            this.app.image(this.enfer, this.x - 12, this.y - 80);
-            
+
+            let cara = '';
+            for (let i = 0; i < this.sintomas.length; i++) {
+                let sintoma = this.sintomas[i];
+
+                if (sintoma.estado === 'ENFERMO') {
+                    cara = sintoma.name;
+                    i = this.sintomas.length;
+                }
+            }
+
+            if (cara === SINTOMAS.DOLOR_ESTOMAGO) {
+                this.app.image(this.enfer, this.x - 12, this.y - 50);
+            }
+            else if (cara === SINTOMAS.VERTIGO) {
+                this.app.image(this.enfer, this.x - 12, this.y - 150);
+            } else if (cara === SINTOMAS.ALERGIA) {
+                this.app.image(this.enfer, this.x - 24, this.y - 35);
+            } else {
+                this.app.image(this.enfer, this.x - 12, this.y - 80);
+            }
+
+
         }
 
     }
@@ -126,17 +148,17 @@ class Paciente extends Elemento {
             if (sintomaTemp.estado === "ENFERMO") {
                 sintomaTemp.estado = "CURADO"
                 console.log("Haz curado al paciente")
-                this.game.aciertos ++;
+                this.game.aciertos++;
 
             } else {
                 //Sobredosis
                 console.log("El paciente ya estaba curado de eso no es necesario")
-                this.game.errores ++;
+                this.game.errores++;
             }
 
         } else {
             console.log("Medicina incorrecta")
-            this.game.errores ++;
+            this.game.errores++;
         }
 
         this.escogerCara();
@@ -145,15 +167,15 @@ class Paciente extends Elemento {
     validarEnfermedades() {
         let counter = 0;
         this.sintomas.forEach(enfer => {
-            if(enfer.estado === 'CURADO'){
-                counter ++;
+            if (enfer.estado === 'CURADO') {
+                counter++;
             }
         })
 
         return counter === this.sintomas.length
     }
 
-    setPaciente( img : string, sintomas : string[]){
+    setPaciente(img: string, sintomas: string[]) {
         this.sintomas = [];
         sintomas.forEach((s) => {
             this.sintomas.push(new Sintoma(s, "ENFERMO"));
