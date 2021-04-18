@@ -76,6 +76,8 @@ export class Instrucciones3 implements Pantalla {
     nav: Navegador;
     btnJugar: Elemento;
     inicio: p5.Image;
+    video1: p5.Image;
+    video2: p5.Image;
 
 
     constructor(app: p5, nav: Navegador) {
@@ -83,12 +85,16 @@ export class Instrucciones3 implements Pantalla {
         this.app = app;
         this.inicio = this.app.loadImage("/img/medicina/recursos/guia.jpg")
         this.btnJugar = new Elemento(app, "/img/medicina/recursos/Boton--siguiente.png", 1060, 660);
+        this.video1 = this.app.loadImage('/video/2dainteraccion.gif');
+        this.video2 = this.app.loadImage('/video/3rainteraccion.gif');
     }
 
     draw() {
         this.app.imageMode(this.app.CORNER);
         this.app.image(this.inicio, 0, 0)
         this.btnJugar.draw();
+        this.app.image(this.video1,400,380);
+        this.app.image(this.video2,900,380);
     }
 
     mousePressed() {
@@ -153,12 +159,17 @@ export class Instrucciones5 implements Pantalla {
         this.app.imageMode(this.app.CORNER);
         this.app.image(this.inicio, 0, 0)
         this.btnJugar.draw();
+        this.app.textSize(20);
+            this.app.text("aciertos", 110 , 220);
+            this.app.text("errores", 110 , 240);
+            this.app.text("estado Paciente", 110 , 260);
+            this.app.text("tiempo Restante", 110 , 280);
         this.registros.forEach( (registro, index) => {
-            this.app.text("Paciente N°" + index, 250 + (100*index), 200);
-            this.app.text(registro.aciertos, 250 + (100*index), 220);
-            this.app.text(registro.errores, 250 + (100*index), 240);
-            this.app.text(registro.estadoPaciente, 250 + (100*index), 260);
-            this.app.text(registro.tiempoRestante, 250 + (100*index), 280);
+            this.app.text("Paciente N°" + index, 280 + (130*index), 200);
+            this.app.text(registro.aciertos, 280 + (130*index), 220);
+            this.app.text(registro.errores, 280 + (130*index), 240);
+            this.app.text(registro.estadoPaciente, 280 + (130*index), 260);
+            this.app.text(registro.tiempoRestante, 280 + (130*index), 280);
         })
         
     }
