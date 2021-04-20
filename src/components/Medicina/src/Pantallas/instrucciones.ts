@@ -152,14 +152,49 @@ export class Instrucciones5 implements Pantalla {
     btnJugar: Elemento;
     inicio: p5.Image;
     registros: Registro[];
+    puntajeFinal : number;
 
 
-    constructor(app: p5, nav: Navegador, registros: Registro[]) {
+    constructor(app: p5, nav: Navegador, registros: Registro[], puntajeFinal : number) {
         this.nav = nav;
         this.app = app;
         this.registros = registros;
         this.inicio = this.app.loadImage("/img/medicina/recursos/resultados_pantalla.png")
         this.btnJugar = new Elemento(app, "/img/medicina/recursos/Boton--siguiente.png", 1060, 660);
+        this.puntajeFinal = puntajeFinal;
+       
+    }
+
+    setup(){
+        this.registros.forEach((registro, index) => {
+
+            if(index === 0 || index === 1){
+                if(registro.estadoPaciente === 'VIVO'){
+                    this.puntajeFinal = this.puntajeFinal + 20;
+                    this.puntajeFinal = this.puntajeFinal - (5*registro.errores);
+                } else {
+                    this.puntajeFinal = this.puntajeFinal + 0;
+                }
+            }
+
+            if(index === 2 || index === 3){
+                if(registro.estadoPaciente === 'VIVO'){
+                    this.puntajeFinal = this.puntajeFinal + 30;
+                    this.puntajeFinal = this.puntajeFinal - (10*registro.errores);
+                } else {
+                    this.puntajeFinal = this.puntajeFinal + 0;
+                }
+            }
+
+            if(index === 4 || index === 5){
+                if(registro.estadoPaciente === 'VIVO'){
+                    this.puntajeFinal = this.puntajeFinal + 50;
+                    this.puntajeFinal = this.puntajeFinal - (15*registro.errores);
+                } else {
+                    this.puntajeFinal = this.puntajeFinal + 0;
+                }
+            }
+        })
     }
 
     draw() {
@@ -177,6 +212,7 @@ export class Instrucciones5 implements Pantalla {
             this.app.text(registro.aciertos, 280 + (130 * index), 220);
             this.app.text(registro.errores, 280 + (130 * index), 240);
             this.app.text(registro.estadoPaciente, 280 + (130 * index), 260);
+           
         })
 
     }
@@ -185,6 +221,8 @@ export class Instrucciones5 implements Pantalla {
         if (this.btnJugar.isHover()) {
             this.nav.next();
         }
+
+        console.log(this.puntajeFinal);
     }
 
 }

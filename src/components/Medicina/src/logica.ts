@@ -17,6 +17,7 @@ class Logica {
         this.app = app;
         this.navegador = new Navegador(app);
         this.img = new ImageController(app);
+        this.puntajeFinal = 0;
         this.navegador.add(new Instrucciones1(app, this.navegador));
         this.navegador.add(new Instrucciones2(app, this.navegador));
         this.navegador.add(new Instrucciones3(app, this.navegador,this.app.loadImage('/img/medicina/recursos/1ra interaccion.png'),this.app.loadImage('/video/2dainteraccion.gif')));
@@ -24,9 +25,8 @@ class Logica {
         this.navegador.add(new Instrucciones3(app, this.navegador,this.app.loadImage('/img/medicina/recursos/5ta interaccion.png')));
         this.navegador.add(new Instrucciones4(app, this.navegador));
         this.navegador.add(new Game(app, this.navegador, this));
-        this.navegador.add(new Instrucciones5(app, this.navegador,this.registros));
+        this.navegador.add(new Instrucciones5(app, this.navegador,this.registros, this.puntajeFinal));
         this.navegador.goTo(0);
-        this.puntajeFinal = 0;
 
     }
 

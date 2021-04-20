@@ -36,9 +36,9 @@ class Game implements Pantalla {
 
     nivel = 0;
 
-    isInsTruction : boolean;
+    isInsTruction: boolean;
 
-    helpUser : p5.Image;
+    helpUser: p5.Image;
 
     constructor(app: p5, nav: Navegador, log: Logica) {
 
@@ -51,7 +51,7 @@ class Game implements Pantalla {
 
         this.background = this.app.loadImage("/img/medicina/recursos/clinicaBG.png");
         this.btnDarDeAlta = new Elemento(this.app, "/img/medicina/recursos/altaBtn.png", 1180, 600);
-        this.signoPregunta = new Elemento(this.app, "/img/medicina/recursos/signoPregunta.png",50,600);
+        this.signoPregunta = new Elemento(this.app, "/img/medicina/recursos/signoPregunta.png", 50, 600);
 
         this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__dolorCabeza.png", 400, 660, SINTOMAS.DOLOR_CABEZA));
         this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__dolorEstomago.png", 500, 660, SINTOMAS.DOLOR_ESTOMAGO));
@@ -60,14 +60,14 @@ class Game implements Pantalla {
         this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__vertigo.png", 800, 660, SINTOMAS.VERTIGO));
         this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__alergia.png", 900, 660, SINTOMAS.ALERGIA));
 
-        this.paciente = new Paciente(this.log, "/img/medicina/recursos/pacientes/p1Base.png", 520, 400, [SINTOMAS.VERTIGO, SINTOMAS.FIEBRE], this);
+        this.paciente = new Paciente(this.log, "/img/medicina/recursos/pacientes/p1Base.png", 520, 400, [SINTOMAS.VERTIGO], this);
 
         this.bandeja = this.app.loadImage("/img/medicina/recursos/medicina/Charola--medicina.png");
 
         this.tiempo = new Tiempo();
-        
-        
-        
+
+
+
     }
 
     setup() {
@@ -89,18 +89,18 @@ class Game implements Pantalla {
         if (seconds <= 9) {
             secondsStr = "0" + seconds;
         }
-        
+
         this.btnDarDeAlta.draw();
         //this.app.text(this.app.mouseX + " " + this.app.mouseY, this.app.mouseX,this.app.mouseY);
         this.signoPregunta.draw();
 
-        if(this.isInsTruction){
-            this.app.image(this.helpUser, 650, 620, 600,200); 
-           
+        if (this.isInsTruction) {
+            this.app.image(this.helpUser, 650, 620, 600, 200);
+
         }
         this.app.noStroke();
-        this.app.fill(0,191,255);
-        this.app.rect(0,50, 200,80);
+        this.app.fill(0, 191, 255);
+        this.app.rect(0, 50, 200, 80);
         this.app.fill(255);
         this.app.textFont('Bell MT');
         this.app.textSize(22);
@@ -117,15 +117,15 @@ class Game implements Pantalla {
         })
 
         if (this.btnDarDeAlta.isHover()) {
-                this.registrarPaciente();
-            
+            this.registrarPaciente();
+
             this.sgtePaciente();
 
         }
 
-        if(this.signoPregunta.isHover()){
+        if (this.signoPregunta.isHover()) {
 
-            if(this.isInsTruction === true){
+            if (this.isInsTruction === true) {
                 this.isInsTruction = false;
                 this.signoPregunta.setImg('/img/medicina/recursos/signoPregunta.png');
             } else {
@@ -146,7 +146,7 @@ class Game implements Pantalla {
                 this.paciente.pintar();
                 break;
             case 2:
-                this.paciente.setPaciente("/img/medicina/recursos/pacientes/p1Base.png", [SINTOMAS.DOLOR_CABEZA]);
+                this.paciente.setPaciente("/img/medicina/recursos/pacientes/p1Base.png", [SINTOMAS.DOLOR_CABEZA, SINTOMAS.FIEBRE]);
                 this.paciente.pintar();
                 break;
             case 3:
@@ -154,7 +154,7 @@ class Game implements Pantalla {
                 this.paciente.pintar();
                 break;
             case 4:
-                this.paciente.setPaciente("/img/medicina/recursos/pacientes/p2Base.png", [SINTOMAS.DOLOR_CABEZA, SINTOMAS.DOLOR_ESTOMAGO]);
+                this.paciente.setPaciente("/img/medicina/recursos/pacientes/p2Base.png", [SINTOMAS.DOLOR_CABEZA, SINTOMAS.DOLOR_ESTOMAGO,SINTOMAS.ALERGIA]);
                 this.paciente.pintar();
                 break;
             case 5:
@@ -180,7 +180,7 @@ class Game implements Pantalla {
 
         this.select = undefined;
 
-        if(this.paciente.validarEnfermedades()){
+        if (this.paciente.validarEnfermedades()) {
             this.paciente.cara = this.app.loadImage('/img/medicina/recursos/pacientes/enfermedad/enferNormal.png');
             this.paciente.enfer = this.app.loadImage('/img/medicina/recursos/pacientes/caras/caraNormal.png')
         }
@@ -195,29 +195,29 @@ class Game implements Pantalla {
 
     timeOver() {
         // this.registrarPaciente();
-        for (let index = 0; this.nivel <7 ; index++) {
+        for (let index = 0; this.nivel < 7; index++) {
             this.registrarPaciente();
             this.sgtePaciente();
-            
+
         }
 
     }
 
     registrarPaciente() {
-        if(this.nivel+1 <=6 ){
+        if (this.nivel + 1 <= 6) {
             this.tiempoRestante = this.tiempo.getSegundos();
 
             if (this.paciente.validarEnfermedades()) {
                 this.estadoPaciente = "VIVO";
-                
+
             } else {
                 this.estadoPaciente = "MUERTO";
             }
-    
+
             if (this.errores >= 3) {
                 this.estadoPaciente = 'MUERTO';
             }
-    
+
             const { errores, tiempoRestante, aciertos, estadoPaciente } = this;
             this.log.registros.push({ errores, tiempoRestante, aciertos, estadoPaciente });
             console.log(this.log.registros);
@@ -226,7 +226,7 @@ class Game implements Pantalla {
         } else {
             this.nav.next();
         }
-        
+
     }
 
 }
