@@ -106,6 +106,33 @@ class Game implements Pantalla {
         this.app.textSize(22);
         this.app.text(minutes + ":" + secondsStr, 100, 100);
 
+        this.app.fill(0, 191, 255);
+        this.app.rect(0, 150, 325, 80);
+        
+        this.app.fill(255);
+
+        this.app.text("Nivel " + (this.nivel+1) , 100, 175);
+        switch (this.nivel) {
+            case 0:
+                this.app.text("Paciente con 1 sintoma", 100, 205);
+                break;
+            case 1:
+                this.app.text("Paciente con 1 sintoma", 100, 205);
+                break;
+            case 2:
+                this.app.text("Paciente con 2 sintomas", 100, 205);
+                break;
+            case 3:
+                this.app.text("Paciente con 2 sintomas", 100, 205);
+                break;
+            case 4:
+                this.app.text("Paciente con 3 sintomas", 100, 205);
+                break;
+            case 5:
+                this.app.text("Paciente con 3 sintomas", 100, 205);
+                break;
+
+        }
     }
 
 
@@ -154,7 +181,7 @@ class Game implements Pantalla {
                 this.paciente.pintar();
                 break;
             case 4:
-                this.paciente.setPaciente("/img/medicina/recursos/pacientes/p2Base.png", [SINTOMAS.DOLOR_CABEZA, SINTOMAS.DOLOR_ESTOMAGO,SINTOMAS.ALERGIA]);
+                this.paciente.setPaciente("/img/medicina/recursos/pacientes/p2Base.png", [SINTOMAS.DOLOR_CABEZA, SINTOMAS.DOLOR_ESTOMAGO, SINTOMAS.ALERGIA]);
                 this.paciente.pintar();
                 break;
             case 5:
