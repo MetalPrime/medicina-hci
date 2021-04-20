@@ -162,8 +162,7 @@ class Game implements Pantalla {
                 this.paciente.pintar();
                 break;
             case 6:
-                this.paciente.setPaciente("/img/medicina/recursos/pacientes/p3Base.png", [SINTOMAS.FIEBRE, SINTOMAS.DOLOR_ESTOMAGO, SINTOMAS.VERTIGO]);
-                this.paciente.pintar();
+                this.nav.next();
                 break;
         }
     }
@@ -195,7 +194,7 @@ class Game implements Pantalla {
 
     timeOver() {
         // this.registrarPaciente();
-        for (let index = 0; this.nivel < 7; index++) {
+        for (let index = 0; this.nivel < 6; index++) {
             this.registrarPaciente();
             this.sgtePaciente();
 
