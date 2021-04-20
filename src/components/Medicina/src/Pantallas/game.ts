@@ -53,19 +53,25 @@ class Game implements Pantalla {
         this.btnDarDeAlta = new Elemento(this.app, "/img/medicina/recursos/altaBtn.png", 1180, 600);
         this.signoPregunta = new Elemento(this.app, "/img/medicina/recursos/signoPregunta.png",50,600);
 
-        this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__dolorCabeza.png", 200, 660, SINTOMAS.DOLOR_CABEZA));
-        this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__dolorEstomago.png", 350, 660, SINTOMAS.DOLOR_ESTOMAGO));
-        this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__tos.png", 500, 660, SINTOMAS.TOS));
-        this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__alergia.png", 800, 660, SINTOMAS.ALERGIA));
-        this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__vertigo.png", 650, 660, SINTOMAS.VERTIGO));
-        this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__fiebre.png", 950, 660, SINTOMAS.FIEBRE));
+        this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__dolorCabeza.png", 400, 660, SINTOMAS.DOLOR_CABEZA));
+        this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__dolorEstomago.png", 500, 660, SINTOMAS.DOLOR_ESTOMAGO));
+        this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__tos.png", 600, 660, SINTOMAS.TOS));
+        this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__fiebre.png", 700, 660, SINTOMAS.FIEBRE));
+        this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__vertigo.png", 800, 660, SINTOMAS.VERTIGO));
+        this.medicinas.push(new Medicina(this.app, "/img/medicina/recursos/medicina/Medicina__alergia.png", 900, 660, SINTOMAS.ALERGIA));
 
         this.paciente = new Paciente(this.log, "/img/medicina/recursos/pacientes/p1Base.png", 520, 400, [SINTOMAS.VERTIGO, SINTOMAS.FIEBRE], this);
 
         this.bandeja = this.app.loadImage("/img/medicina/recursos/medicina/Charola--medicina.png");
 
         this.tiempo = new Tiempo();
-        this.tiempo.temporizador(230, () => { this.timeOver() });
+        
+        
+        
+    }
+
+    setup() {
+        this.tiempo.temporizador(240, () => { this.timeOver() });
     }
 
     draw() {
@@ -83,16 +89,22 @@ class Game implements Pantalla {
         if (seconds <= 9) {
             secondsStr = "0" + seconds;
         }
-        this.app.text(minutes + ":" + secondsStr, 100, 100);
+        
         this.btnDarDeAlta.draw();
         //this.app.text(this.app.mouseX + " " + this.app.mouseY, this.app.mouseX,this.app.mouseY);
         this.signoPregunta.draw();
 
         if(this.isInsTruction){
-            this.app.image(this.helpUser, 570, 620, 900,200); 
+            this.app.image(this.helpUser, 650, 620, 600,200); 
            
         }
-          
+        this.app.noStroke();
+        this.app.fill(0,191,255);
+        this.app.rect(0,50, 200,80);
+        this.app.fill(255);
+        this.app.textFont('Bell MT');
+        this.app.textSize(22);
+        this.app.text(minutes + ":" + secondsStr, 100, 100);
 
     }
 
