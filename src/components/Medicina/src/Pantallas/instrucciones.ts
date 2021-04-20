@@ -76,25 +76,32 @@ export class Instrucciones3 implements Pantalla {
     nav: Navegador;
     btnJugar: Elemento;
     inicio: p5.Image;
-    video1: p5.Image;
-    video2: p5.Image;
+    video1: p5.Image | undefined;
+    video2: p5.Image | undefined;
 
 
-    constructor(app: p5, nav: Navegador) {
+    constructor(app: p5, nav: Navegador, img1?: p5.Image, img2?: p5.Image) {
         this.nav = nav;
         this.app = app;
         this.inicio = this.app.loadImage("/img/medicina/recursos/guia.jpg")
         this.btnJugar = new Elemento(app, "/img/medicina/recursos/Boton--siguiente.png", 1060, 660);
-        this.video1 = this.app.loadImage('/video/2dainteraccion.gif');
-        this.video2 = this.app.loadImage('/video/3rainteraccion.gif');
+        this.video1 = img1;
+        this.video2 = img2;
+
     }
 
     draw() {
         this.app.imageMode(this.app.CORNER);
         this.app.image(this.inicio, 0, 0)
         this.btnJugar.draw();
-        this.app.image(this.video1,400,380);
-        this.app.image(this.video2,900,380);
+        if (this.video1 != undefined) {
+            this.app.image(this.video1, 440, 380);
+
+        }
+        if (this.video2 != undefined) {
+            this.app.image(this.video2, 940, 380);
+
+        }
     }
 
     mousePressed() {
@@ -105,7 +112,7 @@ export class Instrucciones3 implements Pantalla {
 
 }
 
- 
+
 
 export class Instrucciones4 implements Pantalla {
 
@@ -144,7 +151,7 @@ export class Instrucciones5 implements Pantalla {
     nav: Navegador;
     btnJugar: Elemento;
     inicio: p5.Image;
-    registros : Registro[];
+    registros: Registro[];
 
 
     constructor(app: p5, nav: Navegador, registros: Registro[]) {
@@ -160,18 +167,18 @@ export class Instrucciones5 implements Pantalla {
         this.app.image(this.inicio, 0, 0)
         this.btnJugar.draw();
         this.app.textSize(20);
-            this.app.text("aciertos", 110 , 220);
-            this.app.text("errores", 110 , 240);
-            this.app.text("estado Paciente", 110 , 260);
-            this.app.text("tiempo Restante", 110 , 280);
-        this.registros.forEach( (registro, index) => {
-            this.app.text("Paciente N°" + index, 280 + (130*index), 200);
-            this.app.text(registro.aciertos, 280 + (130*index), 220);
-            this.app.text(registro.errores, 280 + (130*index), 240);
-            this.app.text(registro.estadoPaciente, 280 + (130*index), 260);
-            this.app.text(registro.tiempoRestante, 280 + (130*index), 280);
+        this.app.textFont('Bell MT');
+        this.app.fill(0);
+        this.app.text("aciertos", 110, 220);
+        this.app.text("errores", 110, 240);
+        this.app.text("estado Paciente", 110, 260);
+        this.registros.forEach((registro, index) => {
+            this.app.text("Paciente N°" + index, 280 + (130 * index), 200);
+            this.app.text(registro.aciertos, 280 + (130 * index), 220);
+            this.app.text(registro.errores, 280 + (130 * index), 240);
+            this.app.text(registro.estadoPaciente, 280 + (130 * index), 260);
         })
-        
+
     }
 
     mousePressed() {
